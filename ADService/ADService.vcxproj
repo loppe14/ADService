@@ -85,7 +85,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="logger.cpp" />
     <ClCompile Include="qtldap.cpp" />
     <ClCompile Include="winqtldap.cpp" />
     <QtRcc Include="mainwindow.qrc" />
@@ -99,7 +98,6 @@
   <ItemGroup>
     <ClInclude Include="winqtldap.h" />
     <QtMoc Include="ldapconnectmenu.h" />
-    <QtMoc Include="logger.h" />
     <ClInclude Include="qtldap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

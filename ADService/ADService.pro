@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = ADService
 DESTDIR = ../x64/Debug
-CONFIG += debug
+CONFIG += debug console
 LIBS += -L"."
 DEPENDPATH += .
 MOC_DIR += .

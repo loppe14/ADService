@@ -7,15 +7,15 @@
 message("You are running qmake on a generated .pro file. This may not work!")
 
 
-HEADERS += ../ldapreg.h \
+HEADERS += ../winqtldap.h \
     ../qtldap.h \
     ../mainwindow.h \
-    ../logger.h
+    ../ldapconnectmenu.h
 SOURCES += ../qtldap.cpp \
-    ../ldapreg.cpp \
+    ../winqtldap.cpp \
+    ../ldapconnectmenu.cpp \
     ../mainwindow.cpp \
-    ../main.cpp \
-    ../logger.cpp
-FORMS += ../connectForm.ui \
+    ../main.cpp
+FORMS += ../ldapconnectmenu.ui \
     ../mainwindow.ui
 RESOURCES += mainwindow.qrc
