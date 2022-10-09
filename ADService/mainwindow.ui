@@ -6,23 +6,63 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>343</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="logBox">
+      <property name="title">
+       <string>Log</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QPlainTextEdit" name="logText">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Users</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>343</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSetup_Ldap">
+    <property name="title">
+     <string>LDAP</string>
+    </property>
+    <addaction name="actionBind"/>
+    <addaction name="actionConnect"/>
+    <addaction name="actionUnbind"/>
+   </widget>
+   <addaction name="menuSetup_Ldap"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -33,6 +73,26 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionRDP_users">
+   <property name="text">
+    <string>RDP users</string>
+   </property>
+  </action>
+  <action name="actionBind">
+   <property name="text">
+    <string>Bind </string>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="actionUnbind">
+   <property name="text">
+    <string>Unbind</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
