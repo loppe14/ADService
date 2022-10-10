@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="qtldap.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="winqtldap.cpp" />
     <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="ldapconnectmenu.ui" />
@@ -96,9 +97,10 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="idirectoryaccess.h" />
     <ClInclude Include="winqtldap.h" />
     <QtMoc Include="ldapconnectmenu.h" />
-    <ClInclude Include="qtldap.h" />
+    <QtMoc Include="qtldap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

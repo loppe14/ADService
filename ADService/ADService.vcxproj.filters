@@ -46,18 +46,18 @@
     <ClCompile Include="qtldap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="logger.cpp">
+    <ClCompile Include="winqtldap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="winqtldap.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="qtldap.h">
+    <ClInclude Include="winqtldap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="winqtldap.h">
+    <ClInclude Include="idirectoryaccess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -67,10 +67,10 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="logger.h">
+    <QtMoc Include="ldapconnectmenu.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="ldapconnectmenu.h">
+    <QtMoc Include="qtldap.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
