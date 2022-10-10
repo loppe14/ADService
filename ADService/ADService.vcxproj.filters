@@ -52,6 +52,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="winqtldap.h">
@@ -71,6 +74,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="qtldap.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logger.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

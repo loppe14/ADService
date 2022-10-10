@@ -85,6 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="qtldap.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="winqtldap.cpp" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="idirectoryaccess.h" />
+    <QtMoc Include="logger.h" />
     <ClInclude Include="winqtldap.h" />
     <QtMoc Include="ldapconnectmenu.h" />
     <QtMoc Include="qtldap.h" />
