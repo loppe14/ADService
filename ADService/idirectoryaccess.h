@@ -1,8 +1,13 @@
 #pragma once
 #include "QtCore"
-using ServerList = QList<QString>;
+using ServerList = QStringList;
 //abstract repository of server names
-struct ServersRep {};
+struct ServersRep
+{
+	QString _hostname;//domain name
+	ServersRep(const QString& hm);
+	virtual ~ServersRep();
+};
 // interface for directory access protocol
 class IDirectoryAccess
 {
@@ -10,8 +15,6 @@ class IDirectoryAccess
 public:
 	virtual ServerList getServerNames() = 0;
 	virtual int init(ServersRep* rep) = 0;
-	virtual QString errorString() const = 0;
-	virtual State curState() const = 0;
 	enum  State
 	{
 		Announced,
@@ -23,4 +26,15 @@ protected:
 	IDirectoryAccess& operator=(const IDirectoryAccess&) = delete;
 	virtual ~IDirectoryAccess() = 0;
 };
-IDirectoryAccess::~IDirectoryAccess() {}
+class DirectoryAccess : public IDirectoryAccess
+{
+public:
+	State getCurState();
+	QString getErrorString();
+
+protected:
+	DirectoryAccess(const State& st);
+	DirectoryAccess();
+	State curState;
+	QString errorString;
+};

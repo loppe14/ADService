@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LdapConnectMenu</class>
- <widget class="QWidget" name="LdapConnectMenu">
+ <class>ldapConfigMenu</class>
+ <widget class="QWidget" name="ldapConfigMenu">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>237</width>
-    <height>392</height>
+    <width>496</width>
+    <height>502</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>LDAP configuration</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="userBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
-      <string>User and domain</string>
+      <string>Server</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
@@ -26,7 +32,7 @@
       <item row="0" column="1">
        <widget class="QLabel" name="urlLbl">
         <property name="text">
-         <string>Url</string>
+         <string>Hostname</string>
         </property>
        </widget>
       </item>
@@ -40,10 +46,17 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="checkBox">
+      <item row="4" column="0">
+       <widget class="QCheckBox" name="SSLCheck">
         <property name="text">
-         <string>SSL</string>
+         <string>SSL(in developing)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="getHostnameCheck">
+        <property name="text">
+         <string>Get Hostname</string>
         </property>
        </widget>
       </item>
@@ -51,27 +64,30 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="AuthGroup">
+    <widget class="QGroupBox" name="authGroup">
      <property name="title">
       <string>Authentication</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QRadioButton" name="AnonRadio">
+       <widget class="QRadioButton" name="currRadio">
         <property name="text">
-         <string>Anonymous </string>
+         <string>Current credential</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="SimpleRadio">
+       <widget class="QRadioButton" name="simpleRadio">
         <property name="text">
          <string>Simple bind</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="DigestRadio">
+       <widget class="QRadioButton" name="digestRadio">
         <property name="text">
          <string>Digest bind</string>
         </property>
@@ -81,23 +97,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="BindBox">
+    <widget class="QGroupBox" name="bindBox">
      <property name="title">
-      <string>Bind</string>
+      <string> Bind User</string>
      </property>
      <layout class="QFormLayout" name="formLayout_3">
       <item row="0" column="0">
-       <widget class="QLineEdit" name="userLine"/>
+       <widget class="QLineEdit" name="dnLine"/>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="usrLbl">
+       <widget class="QLabel" name="dnLbl">
         <property name="text">
-         <string>User</string>
+         <string>Dn</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLineEdit" name="passwLine"/>
+       <widget class="QLineEdit" name="passwLine">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
        <widget class="QLabel" name="passwLbl">
@@ -106,20 +126,46 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="saslCheck">
+        <property name="text">
+         <string>Sasl(GSSAPI)</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lFilter">
+     <property name="text">
+      <string>Ldap filter:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="filterLine"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="baseDnLine"/>
    </item>
    <item>
     <widget class="QPushButton" name="connectPbt">
      <property name="text">
       <string>Connect</string>
      </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="cancelPbt">
      <property name="text">
       <string>Cancel</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
      </property>
     </widget>
    </item>

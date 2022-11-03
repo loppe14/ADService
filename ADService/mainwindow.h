@@ -4,7 +4,13 @@
 #include "ui_mainwindow.h"
 #include "logger.h"
 #include "WinQtLdap.h"
-#include "ldapconnectmenu.h"
+#include "singletonHolder.h"
+#include "ObjFactory.h"
+#include "ldapconfigmenu.h"
+#include "QStandardItemModel"
+#include "rdpserver.h"
+#include "userservers.h"
+#include "wts.h"
 
 class MainWindow : public QMainWindow, public Ui::MainWindowClass
 {
@@ -15,13 +21,17 @@ public:
     ~MainWindow();
 
 private:
-    QtLdap* qLdap;
-    LdapConnectMenu *cMenu;
-
+    DirectoryAccess* dAccess;
+    ServerList sList;
+    ServersRep* sRep;
+    Logger* logger;
+    QStandardItemModel *RDServModel;
 public slots:
-    void showConnectMenu();
-    void LdapBind();
-    void LdapConnect();
-    void LdapUnbind();
+    void initLdapConnection();
+    void createUserServersInput();
+    void createWTSconnection();
+    void load();
+    void connectToServer();
+    void LdapRelease();
 
 };

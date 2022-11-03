@@ -40,7 +40,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ldapconnectmenu.cpp">
+    <ClCompile Include="ldapconfigmenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qtldap.cpp">
@@ -49,35 +49,79 @@
     <ClCompile Include="winqtldap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="singletonHolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="userservers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rdpserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="idirectoryaccess.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="winqtldap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonHolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="idirectoryaccess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qtldap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="converfunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ldapconnectmenu.ui">
+    <QtUic Include="ldapconfigmenu.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="userservers.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ldapconnectmenu.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="qtldap.h">
+    <QtMoc Include="ldapconfigmenu.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="logger.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="userservers.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="rdpserver.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FactotyCreateFunctions.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

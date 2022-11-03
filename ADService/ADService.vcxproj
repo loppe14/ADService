@@ -14,7 +14,7 @@
     <ProjectGuid>{7DE046E6-7BC3-492E-B6B2-278F25D45EC5}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -58,6 +58,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies);$(Qt_LIBS_);	Wtsapi32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -85,24 +90,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ObjFactory.cpp" />
+    <ClCompile Include="idirectoryaccess.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="qtldap.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="rdpserver.cpp" />
+    <ClCompile Include="singletonHolder.cpp" />
+    <ClCompile Include="userservers.cpp" />
     <ClCompile Include="winqtldap.cpp" />
+    <ClCompile Include="wts.cpp" />
     <QtRcc Include="mainwindow.qrc" />
-    <QtUic Include="ldapconnectmenu.ui" />
+    <QtUic Include="ldapconfigmenu.ui" />
     <QtUic Include="mainwindow.ui" />
     <QtMoc Include="mainwindow.h" />
-    <ClCompile Include="ldapconnectmenu.cpp" />
+    <ClCompile Include="ldapconfigmenu.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="userservers.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConvertFunc.h" />
+    <ClInclude Include="converfunc.h" />
     <ClInclude Include="idirectoryaccess.h" />
+    <ClInclude Include="wts.h" />
     <QtMoc Include="logger.h" />
+    <ClInclude Include="ObjFactory.h" />
+    <QtMoc Include="rdpserver.h" />
+    <ClInclude Include="singletonHolder.h" />
+    <QtMoc Include="userservers.h" />
     <ClInclude Include="winqtldap.h" />
-    <QtMoc Include="ldapconnectmenu.h" />
-    <QtMoc Include="qtldap.h" />
+    <QtMoc Include="ldapconfigmenu.h" />
+    <ClInclude Include="qtldap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FactotyCreateFunctions.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

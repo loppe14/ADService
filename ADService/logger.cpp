@@ -6,9 +6,27 @@ QString Logger::getLog() const
 {
 	return _str;
 }
-void Logger::log(const QString& msg)
+void Logger::log(const QString &msg, bool timeStamp)
 {
-	_str.push_back((_timeStamp ?
-		QTime::currentTime().toString():"") + msg);
-	emit(logged(msg));
+	QString loggedMsg;
+	loggedMsg=(_timeStamp&&timeStamp ?
+		QTime::currentTime().toString()+" " : "") + msg;
+	_str.push_back(loggedMsg);
+	qDebug() << loggedMsg;
+	emit(logged(loggedMsg));
+}
+
+QString StaticLogger::_str = "";
+bool StaticLogger::_timeStamp = true;
+
+
+QString StaticLogger::getLog() { return _str; }
+void StaticLogger::setTimeStamp(bool st) {_timeStamp=st; }
+void StaticLogger::log(const std::string& msg)
+{
+	QString loggedMsg;
+	loggedMsg =QString::fromStdString((_timeStamp ?
+		QTime::currentTime().toString().toStdString() : "") + msg);
+	_str.push_back(loggedMsg);
+	//emit(logged(loggedMsg));
 }
