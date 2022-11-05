@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 TEMPLATE = app
-TARGET = ADService
+TARGET = RDService
 DESTDIR = ../x64/Debug
 CONFIG += debug console
 LIBS += -L"."
@@ -12,4 +12,4 @@ MOC_DIR += .
 OBJECTS_DIR += debug
 UI_DIR += .
 RCC_DIR += .
-include(pro/ADService.pri)
+include(pro/RDService.pri)
