@@ -1,10 +1,12 @@
 #pragma once
+#include <memory>
 template<class T>
 class ObjFactory
 {
 public: 
-	static T* create() {
-		return new T;
+	static auto create() ->decltype(std::make_unique<T>()) 
+	{
+		return std::make_unique<T>();
 	}
 };
 

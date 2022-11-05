@@ -3,14 +3,15 @@
 #include "winqtldap.h"
 #include "logger.h"
 #include "qtldap.h"
+#include <memory>
 template<>
 class ObjFactory<QtLdap>
 {
 public:
-	static QtLdap* create()
+	static std::unique_ptr<QtLdap> create()
 	{
 	#ifdef WIN32
-				 return new WinQtLdap;
+		return std::make_unique<WinQtLdap>();
 	//linux needs openldap implementation 
 		
 	#endif 
@@ -22,18 +23,8 @@ template<>
 class ObjFactory<LdapConfig>
 {
 public:
-	static LdapConfig* create()
+	static std::unique_ptr<LdapConfig> create()
 	{
-		return new LdapConfig("", 389, "", LdapConfig::SimpleBind, "", false);
+		return std::make_unique<LdapConfig>("", 389, "", LdapConfig::SimpleBind, "", false);
 	}
 };
-
-//QtLdap* ObjFactory::create<QtLdap>()
-//	{
-//#ifdef WIN32
-//		 return new WinQtLdap;
-////linux needs openldap implementation 
-//
-//#endif 
-//
-//}
