@@ -1,10 +1,11 @@
 #include "mainwindow.h"
 //using LdapSingleton = SingletonHolder<QtLdap, ObjFactory>;
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , dAccess(nullptr)
     , sRep(nullptr)
-    , logger(ObjFactory<Logger>::create())
+    , logger(newOpFactory<Logger>::create(this))
     , RDServModel(new QStandardItemModel(this))
 {
 
@@ -20,12 +21,14 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 void MainWindow::initLdapConnection() {
-    LdapConfig* lData = ObjFactory<LdapConfig>::create();
-    LdapConfigMenu* menu = new LdapConfigMenu(lData, this);
+    LdapConfig* lData = newOpFactory<LdapConfig>::create(
+        "",389,"",LdapConfig::SimpleBind,"",false
+    );
+    LdapConfigMenu* menu = newOpFactory<LdapConfigMenu>::create(lData, this);
     if(menu->exec()==QDialog::Rejected)
         return;
     sRep = lData;
-    dAccess = ObjFactory<QtLdap>::create();
+    dAccess = newOpFactory<QtLdap>::create();
     connectToServer();
 }
 void MainWindow::connectToServer() {  
@@ -50,12 +53,12 @@ void MainWindow::LdapRelease()
 }
 void MainWindow::createUserServersInput()
 {
-    dAccess = new UserServers(this);
+    dAccess = newOpFactory<UserServers>::create(this);
     connectToServer();
 }
 void MainWindow::createWTSconnection()
 {
-    dAccess = new WTS;
+    dAccess = newOpFactory<WTS>::create();
 }
 void MainWindow::load()
 {
@@ -75,7 +78,7 @@ void MainWindow::load()
     for (const QString& name : sList)
     {   
         logger->log("Connecting to " + name);
-        RDServer *serv = new RDServer(name,this);
+        RDServer *serv = newOpFactory<RDServer>::create(name,this);
         logger->log("initialized " + name);
         if (!serv->updateSessions())
         {
@@ -87,7 +90,7 @@ void MainWindow::load()
         root->appendRow(item);
         for (RDsession sess : serv->sessions())
         {
-            qDebug() << sess._id;
+            qDebug() <<"sess :"<< sess._id;
             item->appendRow(new QStandardItem(sess._id));
         }
     }

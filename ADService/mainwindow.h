@@ -9,6 +9,7 @@
 #include "ldapconfigmenu.h"
 #include "QStandardItemModel"
 #include "rdpserver.h"
+#include <memory>
 #include "userservers.h"
 #include "wts.h"
 

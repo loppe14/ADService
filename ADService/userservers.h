@@ -8,7 +8,7 @@ class UserServers  : public QDialog, public Ui::userServers, public DirectoryAcc
 	Q_OBJECT;
 	ServerList _list;
 public:
-	UserServers(QWidget *parent);
+	UserServers(QWidget *parent=nullptr);
 	int init(ServersRep*)   override;
 	ServerList getServerNames() override;
 	~UserServers();

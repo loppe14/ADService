@@ -10,15 +10,15 @@ ServerList WTS::getServerNames()
 	ServerList list;
 	WTS_SERVER_INFOA** pServerInfo = NULL;
 	DWORD count;
-	qDebug() << "start";
+	qDebug() << "Wts start";
 	if (!WTSEnumerateServersA(/*(LPWSTR)_rep->_hostname.toStdWString().c_str()*/
 		NULL
 		, 0, 1, pServerInfo, &count)) 
 	{
-		qDebug() << "fail";
+		qDebug() << "Wts fail";
 		return ServerList();
 	}
-	qDebug() << "work";
+	qDebug() << "Wts work";
 	for (size_t i = 0; i < count; i++)
 	{
 		list.push_back(QString( (*pServerInfo)++->pServerName));
