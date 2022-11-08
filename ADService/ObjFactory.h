@@ -19,7 +19,7 @@ struct uniquePtrPolicy
 	template<typename ...Args>
 	static auto make(Args&&...args) ->decltype(std::make_unique<T, Args...>(std::forward<Args>(args)...))
 	{
-		std::make_unique<T, Args...>(std::forward<Args>(args)...);
+		return std::make_unique<T, Args...>(std::forward<Args>(args)...);
 	}
 };
 template<class T,template<class>  class Policy>
@@ -35,4 +35,6 @@ public:
 };
 template<class T>
 using newOpFactory = ObjFactory<T, newPolicy>;
+template<class T>
+using uptrFactory  = ObjFactory<T, uniquePtrPolicy>;
 #include "FactotyCreateFunctions.inl"

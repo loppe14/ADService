@@ -4,12 +4,10 @@
 #include "ui_mainwindow.h"
 #include "logger.h"
 #include "WinQtLdap.h"
-#include "singletonHolder.h"
 #include "ObjFactory.h"
 #include "ldapconfigmenu.h"
 #include "QStandardItemModel"
 #include "rdpserver.h"
-#include <memory>
 #include "userservers.h"
 #include "wts.h"
 
@@ -22,7 +20,7 @@ public:
     ~MainWindow();
 
 private:
-    DirectoryAccess* dAccess;
+    std::unique_ptr<DirectoryAccess> dAccess;
     ServerList sList;
     ServersRep* sRep;
     Logger* logger;

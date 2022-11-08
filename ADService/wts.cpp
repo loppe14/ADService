@@ -8,11 +8,11 @@ int WTS::init(ServersRep*rep)
 ServerList WTS::getServerNames()
 {
 	ServerList list;
-	WTS_SERVER_INFOA** pServerInfo = NULL;
+	WTS_SERVER_INFOA** pServerInfo = nullptr;
 	DWORD count;
 	qDebug() << "Wts start";
-	if (!WTSEnumerateServersA(/*(LPWSTR)_rep->_hostname.toStdWString().c_str()*/
-		NULL
+	if (!WTSEnumerateServersA(
+		nullptr
 		, 0, 1, pServerInfo, &count)) 
 	{
 		qDebug() << "Wts fail";

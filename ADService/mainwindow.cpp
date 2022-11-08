@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-//using LdapSingleton = SingletonHolder<QtLdap, ObjFactory>;
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -9,7 +8,7 @@ MainWindow::MainWindow(QWidget* parent)
     , RDServModel(new QStandardItemModel(this))
 {
 
-    setupUi(this);
+    setupUi(this);  
     connect(actionLdapConnect, &QAction::triggered, this, &MainWindow::initLdapConnection);
     connect(logger, &Logger::logged, logSection, &QPlainTextEdit::appendPlainText);
     connect(actionUserInput, &QAction::triggered, this, &MainWindow::createUserServersInput);
@@ -28,7 +27,7 @@ void MainWindow::initLdapConnection() {
     if(menu->exec()==QDialog::Rejected)
         return;
     sRep = lData;
-    dAccess = newOpFactory<QtLdap>::create();
+    dAccess = uptrFactory<QtLdap>::create();
     connectToServer();
 }
 void MainWindow::connectToServer() {  
@@ -44,7 +43,7 @@ void MainWindow::connectToServer() {
 
 void MainWindow::LdapRelease()
 {
-    QtLdap* qLdap = dynamic_cast<QtLdap*>(dAccess);
+    QtLdap* qLdap = dynamic_cast<QtLdap*>(dAccess.get());
     if (qLdap != nullptr)
     {
         qLdap->release();
@@ -53,15 +52,17 @@ void MainWindow::LdapRelease()
 }
 void MainWindow::createUserServersInput()
 {
-    dAccess = newOpFactory<UserServers>::create(this);
+    dAccess = uptrFactory<UserServers>::create(this);
     connectToServer();
 }
 void MainWindow::createWTSconnection()
 {
-    dAccess = newOpFactory<WTS>::create();
+    dAccess = uptrFactory<WTS>::create();
 }
 void MainWindow::load()
 {
+    if (!dAccess|| dAccess->getCurState() != DirectoryAccess::Initialized)
+        return;
     sList = dAccess->getServerNames();
     if (sList.size() == 0)
     {
