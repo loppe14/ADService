@@ -1,7 +1,5 @@
 #pragma once
 #include <memory>
-#include <typeinfo>
-#include <QtCore>
 template<class T>
 struct newPolicy
 {
