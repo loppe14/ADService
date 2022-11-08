@@ -17,14 +17,12 @@ signals:
 };
 class StaticLogger :public QObject
 {
-	//Q_OBJECT
+	Q_OBJECT
 	static QString _str;
 	static bool _timeStamp;
 public:
 	static QString getLog();
 	static void setTimeStamp(bool);
-//public slots:
+public slots:
     static void log(const std::string &);
-//signals:
-	static void logged(const QString&);
 };

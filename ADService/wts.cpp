@@ -8,17 +8,17 @@ int WTS::init(ServersRep*rep)
 ServerList WTS::getServerNames()
 {
 	ServerList list;
-	WTS_SERVER_INFOA** pServerInfo = NULL;
+	WTS_SERVER_INFOA** pServerInfo = nullptr;
 	DWORD count;
-	qDebug() << "start";
-	if (!WTSEnumerateServersA(/*(LPWSTR)_rep->_hostname.toStdWString().c_str()*/
-		NULL
+	qDebug() << "Wts start";
+	if (!WTSEnumerateServersA(
+		nullptr
 		, 0, 1, pServerInfo, &count)) 
 	{
-		qDebug() << "fail";
+		qDebug() << "Wts fail";
 		return ServerList();
 	}
-	qDebug() << "work";
+	qDebug() << "Wts work";
 	for (size_t i = 0; i < count; i++)
 	{
 		list.push_back(QString( (*pServerInfo)++->pServerName));

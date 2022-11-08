@@ -8,7 +8,7 @@ RDServer::RDServer(const QString &hostname, QObject *parent)
 	hServer = WTSOpenServerA(long_string);
 	if (!hServer)
 	{
-		qDebug() << GetLastError();
+		qDebug() <<"RDServer error: "<< GetLastError();
 	}
 }
 RDServer::RDServer(const ServersRep* rep, QObject* parent)
@@ -21,9 +21,9 @@ RDServer::RDServer(const ServersRep* rep, QObject* parent)
 	hServer = WTSOpenServerA(long_string);
 	if (!hServer)
 	{
-		qDebug() << GetLastError();
+		qDebug() << "RDServer error: " << GetLastError();
 	}
-	qDebug() << "opened";
+	qDebug() << "RDServer opened";
 
 }
 bool RDServer::updateSessions() {

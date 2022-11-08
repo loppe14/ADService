@@ -4,27 +4,18 @@
 #include "logger.h"
 #include "qtldap.h"
 #include <memory>
-template<>
-class ObjFactory<QtLdap>
+template<template<class> class Policy>
+class ObjFactory<QtLdap,Policy>
 {
 public:
-	static std::unique_ptr<QtLdap> create()
-	{
-	#ifdef WIN32
-		return std::make_unique<WinQtLdap>();
-	//linux needs openldap implementation 
+	template<typename ...Args>
+	static auto create(Args&&...args) 	{
+#ifdef WIN32
+
+		return Policy<WinQtLdap>::make(std::forward<Args>(args)...);
+		//elseif ... linux needs openldap implementation 
 		
 	#endif 
 		
-	}
-};
-
-template<>
-class ObjFactory<LdapConfig>
-{
-public:
-	static std::unique_ptr<LdapConfig> create()
-	{
-		return std::make_unique<LdapConfig>("", 389, "", LdapConfig::SimpleBind, "", false);
 	}
 };

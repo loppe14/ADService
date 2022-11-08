@@ -55,9 +55,6 @@
     <ClCompile Include="ObjFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="singletonHolder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="userservers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,7 +65,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="idirectoryaccess.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,9 +85,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConvertFunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="converfunc.h">
