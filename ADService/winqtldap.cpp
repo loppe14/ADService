@@ -1,13 +1,13 @@
 #include "winqtldap.h"
 WinQtLdap::WinQtLdap(QObject* parent /*=nullptr*/) :
 	QtLdap(parent),
-	_pLdap(NULL)
+	_pLdap(nullptr)
 {
 }
 
 int WinQtLdap::init(const QString& url, ulong port)
 {
-	PSTR pUrl = url == "" ? NULL : (PSTR)url.toStdString().c_str();
+	PSTR pUrl = url == "" ? nullptr : (PSTR)url.toStdString().c_str();
 	_pLdap = ldap_initA(pUrl, port);
 	if (_pLdap == nullptr)
 	{
@@ -18,14 +18,14 @@ int WinQtLdap::init(const QString& url, ulong port)
 }
 int WinQtLdap::sasl_bind(const QString& dn, const QString& passw)
 {
-	PSTR pDn = dn == "" ? NULL : (PSTR)dn.toStdString().c_str();
-	PSTR wPassw = passw == "" ? NULL : (PSTR)dn.toStdString().c_str();
+	PSTR pDn = dn == "" ? nullptr : (PSTR)dn.toStdString().c_str();
+	PSTR wPassw = passw == "" ? nullptr : (PSTR)dn.toStdString().c_str();
 	QString str = "GSSAPI";
 	BERVAL ber;
-	BERVAL* ser = NULL;
+	BERVAL* ser = nullptr;
 	ber.bv_val = (PCHAR)str.toStdWString().c_str();
 	ber.bv_len = sizeof(str.toStdWString().c_str());
-	if (!handle_res(ldap_sasl_bind_sA(_pLdap, pDn, (PSTR)str.toStdString().c_str(), &ber, NULL, NULL,&ser), "ldap_sasl_bind() error: "))
+	if (!handle_res(ldap_sasl_bind_sA(_pLdap, pDn, (PSTR)str.toStdString().c_str(), &ber, nullptr, nullptr,&ser), "ldap_sasl_bind() error: "))
 	{
 		return 0;
 	}
@@ -42,8 +42,8 @@ int WinQtLdap::handle_res(ULONG _res, const char* msg)
 }
 int WinQtLdap::bind(const QString& dn, const QString& passw, LdapConfig::BindAuth authMech)
 {
-	PSTR pDn = dn == "" ? NULL : (PSTR)dn.toStdString().c_str();
-	PSTR pPassw = passw == "" ? NULL : (PSTR)dn.toStdString().c_str();
+	PSTR pDn = dn == "" ? nullptr : (PSTR)dn.toStdString().c_str();
+	PSTR pPassw = passw == "" ? nullptr : (PSTR)dn.toStdString().c_str();
 	switch (authMech)
 	{
 	case LdapConfig::SimpleBind:
@@ -62,7 +62,6 @@ int WinQtLdap::connect(uint connectsec, uint connectmsec)
 {
 	l_timeval t;
 	t.tv_sec = connectsec;
-
 	t.tv_usec = connectmsec;
 	if(handle_res(ldap_connect(_pLdap,&t), "ldap_connect() error: "))
 		return 0;
@@ -112,7 +111,7 @@ int WinQtLdap::search(const QString& baseDN, const QString& filter,QLdapEntryLis
 		char *dn = ldap_get_dnA(_pLdap, entry);
 		qlEntry["dn"] = dn;
 		ldap_memfreeA(dn);
-		BerElement* pBer = NULL;
+		BerElement* pBer = nullptr;
 		char* attribute = ldap_first_attributeA(_pLdap, entry, &pBer);
 		while ((attribute))
 		{

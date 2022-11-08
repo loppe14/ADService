@@ -28,5 +28,4 @@ void StaticLogger::log(const std::string& msg)
 	loggedMsg =QString::fromStdString((_timeStamp ?
 		QTime::currentTime().toString().toStdString() : "") + msg);
 	_str.push_back(loggedMsg);
-	//emit(logged(loggedMsg));
 }

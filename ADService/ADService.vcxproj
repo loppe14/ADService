@@ -109,7 +109,6 @@
     <QtUic Include="userservers.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConvertFunc.h" />
     <ClInclude Include="converfunc.h" />
     <ClInclude Include="idirectoryaccess.h" />
     <ClInclude Include="wts.h" />
