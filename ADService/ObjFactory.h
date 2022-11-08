@@ -6,7 +6,6 @@ struct newPolicy
 	template<typename ...Args>
 	static auto make(Args&&...args) ->decltype(new T(std::forward<Args>(args)...))	
 	{
-		qDebug() << "created " << typeid(T).name();
 		return new T(std::forward<Args>(args)...);
 	}
 };

@@ -95,7 +95,6 @@
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="qtldap.cpp" />
     <ClCompile Include="rdpserver.cpp" />
-    <ClCompile Include="singletonHolder.cpp" />
     <ClCompile Include="userservers.cpp" />
     <ClCompile Include="winqtldap.cpp" />
     <ClCompile Include="wts.cpp" />
