@@ -55,9 +55,6 @@
     <ClCompile Include="ObjFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="singletonHolder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="userservers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
