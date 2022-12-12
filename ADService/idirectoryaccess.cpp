@@ -1,16 +1,20 @@
 #include "idirectoryaccess.h"
 IDirectoryAccess::~IDirectoryAccess() {}
-ServersRep::ServersRep(const QString &hn)
+ServerConfig::ServerConfig(const QString &hn)
 	:_hostname(hn)
 {}
-ServersRep::~ServersRep() {}
-DirectoryAccess::DirectoryAccess(const State& st) : curState(st) {}
-DirectoryAccess::DirectoryAccess() :curState(State::Announced) {}
-QString DirectoryAccess::getErrorString()
+ServerConfig::~ServerConfig() {}
+DirectoryAccess::DirectoryAccess(const State& st) : _curState(st) {}
+DirectoryAccess::DirectoryAccess() :_curState(State::Announced) {}
+QString DirectoryAccess::getErrorString() const
 {
-	return errorString;
+	return _errorString;
 }
-IDirectoryAccess::State DirectoryAccess::getCurState()
+IDirectoryAccess::State DirectoryAccess::getCurState() const
 {
-	return curState;
+	return _curState;
+}
+QString DirectoryAccess::getHostname() const
+{
+	return _config->_hostname;
 }

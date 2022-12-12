@@ -15,14 +15,3 @@ signals:
 	void logged(const QString& msg);
 
 };
-class StaticLogger :public QObject
-{
-	Q_OBJECT
-	static QString _str;
-	static bool _timeStamp;
-public:
-	static QString getLog();
-	static void setTimeStamp(bool);
-public slots:
-    static void log(const std::string &);
-};

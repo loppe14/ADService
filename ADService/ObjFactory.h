@@ -10,7 +10,6 @@ struct newPolicy
 	}
 };
 template<class T>
-
 struct uniquePtrPolicy
 {
 	template<typename ...Args>
@@ -26,7 +25,6 @@ public:
 	template<typename ...Args>
 	static auto create(Args&&...args) ->decltype(Policy<T>::make(std::forward<Args>(args)...))
 	{
-		
 		return Policy<T>::make(std::forward<Args>(args)...);
 	}	
 };

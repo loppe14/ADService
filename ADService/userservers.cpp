@@ -3,26 +3,30 @@
 UserServers::UserServers(QWidget *parent)
 	: QDialog(parent)
 	,DirectoryAccess(State::Announced)
+	,_list(ServerList())
 {
 	setupUi(this);
 }
-int UserServers::init(ServersRep*)
+int UserServers::init(ServerConfig*)
 {
 	exec();
 	QString text = inputField->toPlainText();
-	_list = inputField->toPlainText().split(u';',Qt::SkipEmptyParts);
+	text = text.simplified(); text.replace(" ", "");
+	_list = text.split(u';',Qt::SkipEmptyParts);
 	if (_list.size() == 0)
 	{
-		errorString="Empty server field received";
+		_errorString="Empty server field received";
 		return 0;
 	}
-	curState=Initialized;
+	_curState=Initialized;
 	return 1;
 	
 }
-ServerList UserServers::getServerNames()
+int UserServers::getServerNames(ServerList *list)
 {
-	return _list;
+	 *list = _list;
+	 return 1;
+
 }
 UserServers::~UserServers()
 {

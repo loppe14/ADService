@@ -4,6 +4,7 @@
 #include <Winldap.h>
 #include "qtldap.h"
 #include <QObject>
+#include "logger.h"
 #pragma comment(lib, "Wldap32.lib")
 
 class WinQtLdap : public QtLdap
@@ -14,7 +15,7 @@ public:
     ~WinQtLdap();
 protected:
 
-    int init(const QString& url, ulong port) override;
+    int ldapInit(const QString& url, ulong port) override;
     int bind(const QString& dn="", const QString& passw="", LdapConfig::BindAuth authMech=LdapConfig::SimpleBind)override;
     int connect(uint connectSec = 120, uint connectMsec = 0)override;
     int sasl_bind(const QString&, const QString&) override;

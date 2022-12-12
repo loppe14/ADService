@@ -4,18 +4,16 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , dAccess(nullptr)
     , sRep(nullptr)
-    , logger(newOpFactory<Logger>::create(this))
-    , RDServModel(new QStandardItemModel(this))
 {
 
     setupUi(this);  
     connect(actionLdapConnect, &QAction::triggered, this, &MainWindow::initLdapConnection);
-    connect(logger, &Logger::logged, logSection, &QPlainTextEdit::appendPlainText);
+    connect(sLogger->instance(), &Logger::logged, logSection, &QPlainTextEdit::appendPlainText);
     connect(actionUserInput, &QAction::triggered, this, &MainWindow::createUserServersInput);
     connect(loadPbt, &QPushButton::clicked, this, &MainWindow::load);
     connect(actionWTS, &QAction::triggered, this, &MainWindow::createWTSconnection);
-
-    UsersTree->setModel(RDServModel);
+    quickView->rootContext()->setContextProperty("sessModel",  &sModel);
+    quickView->setSource(QUrl::fromLocalFile("SessionsView.qml"));
 }
 
 
@@ -30,15 +28,14 @@ void MainWindow::initLdapConnection() {
     dAccess = uptrFactory<QtLdap>::create();
     connectToServer();
 }
-void MainWindow::connectToServer() {  
-
-    logger->log("Connecting to server...");
+void MainWindow::connectToServer() {    
+    sLogger->instance()->log("Connecting to");
     if (!dAccess->init(sRep))
     {
-        logger->log("error while connecting to server:\n" + dAccess->getErrorString());
+        sLogger->instance()->log("error while connecting to server:\n" + dAccess->getErrorString());
     }
     else
-    logger->log("successfuly connect to server");
+    sLogger->instance()->log("successfuly connect to server");
 }
 
 void MainWindow::LdapRelease()
@@ -53,7 +50,7 @@ void MainWindow::LdapRelease()
 void MainWindow::createUserServersInput()
 {
     dAccess = uptrFactory<UserServers>::create(this);
-    connectToServer();
+    load();
 }
 void MainWindow::createWTSconnection()
 {
@@ -61,41 +58,38 @@ void MainWindow::createWTSconnection()
 }
 void MainWindow::load()
 {
-    if (!dAccess|| dAccess->getCurState() != DirectoryAccess::Initialized)
+    if (!dAccess)
         return;
-    sList = dAccess->getServerNames();
-    if (sList.size() == 0)
+    if (dAccess->getCurState() == DirectoryAccess::Announced)
+        connectToServer();
+    if (!dAccess->getServerNames(&sList))
     {
-        logger->log("error: " + dAccess->getErrorString());
+        sLogger->instance()->log("Error while while getting servers " + dAccess->getErrorString());
         return;
     }
-    logger->log("received servers:");
+    sLogger->instance()->log("received servers:");
     for (const QString& str : sList)
     {
-        logger->log("    "+str, false);
+        sLogger->instance()->log("    "+str, false);
     }
-    RDServModel->clear();
-    QStandardItem* root = RDServModel->invisibleRootItem();
     for (const QString& name : sList)
     {   
-        logger->log("Connecting to " + name);
-        RDServer *serv = newOpFactory<RDServer>::create(name,this);
-        logger->log("initialized " + name);
+        sLogger->instance()->log("Connecting to " + name);
+        RDServer* serv = new RDServer(name);
+        
+        sLogger->instance()->log("initialized " + name);
         if (!serv->updateSessions())
         {
-            logger->log("error while connecting " + name);
-            logger->log(QString::number(GetLastError()));
+            sLogger->instance()->log("error while connecting " + name);
+            sLogger->instance()->log(QString::number(GetLastError()));
         }
-       
-        QStandardItem* item = new QStandardItem(name);
-        root->appendRow(item);
-        for (RDsession sess : serv->sessions())
-        {
-            qDebug() <<"sess :"<< sess._id;
-            item->appendRow(new QStandardItem(sess._id));
-        }
+        sModel.setSessionList(serv->sessions(), 0);
     }
+    
 }
 
 MainWindow::~MainWindow()
-{}
+{
+    DirectoryAccess *p = dAccess.release();
+    delete p;
+}

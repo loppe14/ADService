@@ -1,55 +1,58 @@
 #include "qtldap.h"
 QtLdap::QtLdap(QObject* parent/*=nullptr*/) 
 	:DirectoryAccess(State::Announced) {}
-int QtLdap::init(ServersRep *rep)
+int QtLdap::init(ServerConfig *rep)
 {
-    config = dynamic_cast<LdapConfig *>(rep);
-	if (curState != Announced)
+	auto cleanup = qScopeGuard([=] {release(); });
+	config = dynamic_cast<LdapConfig *>(rep);
+	if (_curState != Announced)
 		release();
 	ServerList list; // shared ptr
-	if (!init(config->_hostname, config->port)) {
+	if (!ldapInit(config->_hostname, config->port)) {
 		//when ldap gets an error in derived class it returns 0 and the derived class should fill the errorstring
-		release();
 		return 0;
 	}
+
+	if (!connect())
+	{
+		return 0;
+	} 
 	if (config->usingSasl) {
 		if (!sasl_bind(config->dn, config->passw))
 		{
-			release();
 			return 0;
 		}
 	}
-	if (!bind(config->dn, config->passw, config->auth))
+	else
+	/*if (!bind(config->dn, config->passw, config->auth))
 	{
-		release();
 		return 0;
-	}
-	curState =Initialized;
+	}*/
+	_curState =Initialized;
 	return 1;
 }
-ServerList QtLdap::getServerNames()
+int QtLdap::getServerNames(ServerList * list)
 {
-	ServerList list;
 	QLdapEntryList results;
-	if (!search(config->dn, config->filter, &results))
+	if (!search(config->_hostname, config->filter, &results))
 	{
-		return ServerList();
+		return 0;
 	}
 	for (auto i : results)
 	{
 
 		for (QLdapEntry::iterator it = i.begin(); it !=i.end(); it++)
 		{
-			list.append(it.value());
+			list->append(it.value());
 		}
 	}
-	return list;
+	return 1;
 }
 int QtLdap::release()
 {
 	if (!unbind())
-		throw std::logic_error("Ldap unbind error " + getErrorString().toStdString());
-	curState = Announced;
+		throw std::logic_error("Ldap unbind error");
+	_curState = Announced;
 	return 1;
 
 }
@@ -59,7 +62,7 @@ LdapConfig::LdapConfig(const QString& hn, ulong port,
 	const QString& passw, BindAuth bAuth,
 	const QString& filt,
 	bool sasl)
-	: ServersRep(hn)
+	: ServerConfig(hn)
 	, port(port)
 	, passw(passw)
 	, auth(bAuth)

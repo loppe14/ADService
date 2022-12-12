@@ -6,15 +6,11 @@
 #include "idirectoryaccess.h"
 #pragma comment(lib, "Wtsapi32.lib")
 // qt wrapper over Window terminal serveces
-struct RDsession {
-	ulong _id;
-	RDsession(ulong id):_id(id){}
-};
 class WTS  : public DirectoryAccess
 {
-	ServersRep* _rep;
+	ServerConfig* _rep;
 public:
-	int init(ServersRep* rep)  override;
-	ServerList getServerNames()override;
+	int init(ServerConfig* rep)  override;
+	int getServerNames(ServerList *)override;
 	~WTS();
 };

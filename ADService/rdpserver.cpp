@@ -1,50 +1,69 @@
 #include "rdpserver.h"
 RDServer::RDServer(const QString &hostname, QObject *parent)
 	: QObject(parent)
-	, ServersRep(hostname)
+	, ServerConfig(hostname)
 	, hServer(nullptr)
 {
-	LPSTR long_string = (LPSTR)hostname.toStdString().c_str();
-	hServer = WTSOpenServerA(long_string);
+	hServer = WTSOpenServerW(const_cast<wchar_t*>(hostname.toStdWString().c_str()));
 	if (!hServer)
 	{
-		qDebug() <<"RDServer error: "<< GetLastError();
+		staticLogger::instance()->log("RDServer error: " + QString::number(GetLastError()));
 	}
 }
-RDServer::RDServer(const ServersRep* rep, QObject* parent)
+RDsession::RDsession(ulong id, const QString& station,const QString& user,
+	const RDState & state, const QString& server, QObject* parent)
+	:QObject(parent),
+	_id(id),
+	_station(station),
+	_state(state),
+	_user(user),
+	_server(server)
+{}
+RDServer::RDServer(const ServerConfig* rep, QObject* parent)
 	:QObject(parent)
-	, ServersRep(*rep)
+	, ServerConfig(*rep)
 	,hServer(nullptr)
 {
-	QString hn = rep->_hostname;
-	LPSTR long_string = (LPSTR)hn.toStdString().c_str();
-	hServer = WTSOpenServerA(long_string);
+	hServer = WTSOpenServerW(const_cast<wchar_t*>(rep->_hostname.toStdWString().c_str()));
 	if (!hServer)
 	{
-		qDebug() << "RDServer error: " << GetLastError();
+		staticLogger::instance()->log("RDServer error: " + QString::number(GetLastError()));
 	}
-	qDebug() << "RDServer opened";
 
 }
 bool RDServer::updateSessions() {
 	_sessions.clear();
-	WTS_SESSION_INFOA *pSessionInfo = NULL;
+	WTS_SESSION_INFOW *pSessionInfo = NULL;
 	DWORD count;
-	if (!WTSEnumerateSessionsA(hServer, 0, 1, &pSessionInfo, &count)) {
+	if (!WTSEnumerateSessionsW(hServer, 0, 1, &pSessionInfo, &count)) {
 		WTSFreeMemory(pSessionInfo);
+		staticLogger::instance()->log("RDServer enumerate error: " + QString::number(GetLastError()));
 		return 0;
 	}
-	QVector<RDsession> list;
-	//for (size_t i = 0; i < count; i++)
-	//{
-	//	list.push_back(RDsession((ulong)(*res)++->SessionId));
-	//}
+	QList<RDsession*> list;
+	QString username;
+	for (size_t i = 0; i < count; i++)
+	{
+		LPWSTR pwUser = nullptr;
+		DWORD size=0;
+		if (!WTSQuerySessionInformationW(hServer, pSessionInfo->SessionId, WTS_INFO_CLASS::WTSUserName, &pwUser, &size))
+		{
+			username = "error";
+			staticLogger::instance()->log("RDServer getting user error: " + QString::number(GetLastError()));
+		}
+		else
+			username = QString::fromWCharArray(pwUser,(ulong)size/sizeof(*pwUser));
+		list.push_back(new RDsession((ulong)pSessionInfo++->SessionId,
+			QString::fromWCharArray(pSessionInfo->pWinStationName),
+			username,
+			(RDsession::RDState)pSessionInfo->State,_hostname,this));
+	}
 	_sessions = list;
-	WTSFreeMemory(pSessionInfo);
+	//WTSFreeMemory(pSessionInfo);
 	return 1;
 
 }
-QVector<RDsession> RDServer::sessions() {
+QList<RDsession*> RDServer::sessions() const{
 	return _sessions;
 }
 RDServer::~RDServer()

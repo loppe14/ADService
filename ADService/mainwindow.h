@@ -6,15 +6,21 @@
 #include "WinQtLdap.h"
 #include "ObjFactory.h"
 #include "ldapconfigmenu.h"
+#include "rdsessmodel.h"
+#include <qquickwidget.h>
 #include "QStandardItemModel"
+#include "qqmlapplicationengine.h"
 #include "rdpserver.h"
+#include "qqmlcomponent.h"
+#include "qqmlcontext.h"
 #include "userservers.h"
 #include "wts.h"
+#include "singletonHolder.h"
+using staticLogger = SingletonHolder<Logger>;
 
 class MainWindow : public QMainWindow, public Ui::MainWindowClass
 {
     Q_OBJECT
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -22,9 +28,9 @@ public:
 private:
     std::unique_ptr<DirectoryAccess> dAccess;
     ServerList sList;
-    ServersRep* sRep;
-    Logger* logger;
-    QStandardItemModel *RDServModel;
+    ServerConfig* sRep;
+    staticLogger* sLogger;
+    RDSessListModel sModel = RDSessListModel();
 public slots:
     void initLdapConnection();
     void createUserServersInput();
@@ -32,5 +38,4 @@ public slots:
     void load();
     void connectToServer();
     void LdapRelease();
-
 };

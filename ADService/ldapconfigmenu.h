@@ -6,9 +6,9 @@ class LdapConfigMenu :public QDialog, Ui::ldapConfigMenu
 {
 	Q_OBJECT;
 private:
-	ServersRep *sRep;
+	ServerConfig *sRep;
 public:
-	LdapConfigMenu(ServersRep *rep,QWidget* parent = nullptr);
+	LdapConfigMenu(ServerConfig *rep,QWidget* parent = nullptr);
 signals:
 	void transfer_data();
 };

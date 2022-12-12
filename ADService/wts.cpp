@@ -1,30 +1,25 @@
 #include "wts.h"
-int WTS::init(ServersRep*rep)
+int WTS::init(ServerConfig*rep)
 {
 	_rep=rep;
 	return 1;
 }
-
-ServerList WTS::getServerNames()
+int WTS::getServerNames(ServerList * list)
 {
-	ServerList list;
-	WTS_SERVER_INFOA** pServerInfo = nullptr;
+	WTS_SERVER_INFOW** pServerInfo = NULL;
 	DWORD count;
-	qDebug() << "Wts start";
-	if (!WTSEnumerateServersA(
-		nullptr
-		, 0, 1, pServerInfo, &count)) 
+	if (!WTSEnumerateServersW(
+		NULL, 0, 1, pServerInfo, &count)) 
 	{
-		qDebug() << "Wts fail";
-		return ServerList();
+		_errorString = "WTSEnumerateServersW() error : " +QString::number(GetLastError());
+		return 0;
 	}
-	qDebug() << "Wts work";
 	for (size_t i = 0; i < count; i++)
 	{
-		list.push_back(QString( (*pServerInfo)++->pServerName));
+		list->push_back(QString::fromWCharArray( (*pServerInfo)++->pServerName));
 	}
-	WTSFreeMemory(pServerInfo);
-	return list;
+	//WTSFreeMemory(pServerInfo);
+	return 1;
 }
 
 WTS::~WTS()

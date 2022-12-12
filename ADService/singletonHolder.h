@@ -1,12 +1,17 @@
 #pragma once
-template<class T, class Factory>
+#include "ObjFactory.h"
+template<class T>
 class SingletonHolder
 {
 	inline static T* ptr=nullptr;
 public:
 	static T* instance() {
 		if (!ptr)
-			ptr = Factory<T>::create();
+			ptr =newOpFactory<T>::create();
 		return ptr;
+	}
+    T* operator->() const 
+	{
+		return instance();
 	}
 };

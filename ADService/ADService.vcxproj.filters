@@ -67,6 +67,12 @@
     <ClCompile Include="idirectoryaccess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rdsessmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="winqtldap.h">
@@ -87,7 +93,7 @@
     <ClInclude Include="wts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="converfunc.h">
+    <ClInclude Include="SessionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -112,10 +118,16 @@
     <QtMoc Include="rdpserver.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="rdsessmodel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <None Include="FactotyCreateFunctions.inl">
       <Filter>Header Files</Filter>
+    </None>
+    <None Include="SessionsView.qml">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>
