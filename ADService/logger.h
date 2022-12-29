@@ -1,6 +1,7 @@
 #pragma once
 #include <qobject.h>
 #include <qdatetime.h>
+#include "singletonHolder.h"
 class Logger : public QObject
 {
 	Q_OBJECT
@@ -15,3 +16,4 @@ signals:
 	void logged(const QString& msg);
 
 };
+using StaticLogger = SingletonHolder<Logger>;

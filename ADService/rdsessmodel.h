@@ -2,7 +2,7 @@
 
 #include <QAbstractListModel>
 #include "rdpserver.h"
-class RDSessListModel  : public QAbstractListModel
+class RDSessListModel  : protected QAbstractListModel
 {
 	Q_OBJECT
 	Q_PROPERTY(int count READ rowCount NOTIFY rowChanged)

@@ -2,12 +2,12 @@
 
 UserServers::UserServers(QWidget *parent)
 	: QDialog(parent)
-	,DirectoryAccess(State::Announced)
+	,ServerRep(State::Announced)
 	,_list(ServerList())
 {
 	setupUi(this);
 }
-int UserServers::init(ServerConfig*)
+int UserServers::init()
 {
 	exec();
 	QString text = inputField->toPlainText();
@@ -18,11 +18,11 @@ int UserServers::init(ServerConfig*)
 		_errorString="Empty server field received";
 		return 0;
 	}
-	_curState=Initialized;
+	_state=Initialized;
 	return 1;
 	
 }
-int UserServers::getServerNames(ServerList *list)
+int UserServers::getServers(ServerList* list)
 {
 	 *list = _list;
 	 return 1;

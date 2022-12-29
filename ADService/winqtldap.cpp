@@ -1,6 +1,6 @@
 #include "winqtldap.h"
-WinQtLdap::WinQtLdap(QObject* parent /*=nullptr*/) :
-	QtLdap(parent),
+WinQtLdap::WinQtLdap(LdapConfig*conf, QObject* parent /*=nullptr*/) :
+	QtLdap(conf),
 	_pLdap(nullptr)
 {
 }
@@ -76,8 +76,8 @@ int WinQtLdap::bind(const QString& dn, const QString& passw, LdapConfig::BindAut
 		{
 			qDebug() << "Binding as another user ";
 			_SEC_WINNT_AUTH_IDENTITY_W identity;
-			identity.Domain = (unsigned short*)config->_hostname.toStdWString().data();
-			identity.DomainLength = config->_hostname.size();//not including the terminating null character
+			identity.Domain = (unsigned short*)_config->hostname().toStdWString().data();
+			identity.DomainLength = _config->hostname().size();//not including the terminating null character
 			identity.Password = (unsigned short*)pPassw;
 			identity.PasswordLength = passw.size();//not including the terminating null character
 			identity.User = (unsigned short*)pDn;
@@ -103,7 +103,7 @@ int WinQtLdap::connect(uint connectsec, uint connectmsec)
 	{
 		return 0;
 	}
-	config->_hostname = QString::fromWCharArray(const_cast<const wchar_t *>(out));
+	_config->setHostname(QString::fromWCharArray(const_cast<const wchar_t *>(out)));
 	return 1;
 
 }
@@ -171,11 +171,11 @@ int WinQtLdap::search(const QString& baseDN, const QString& filter,QLdapEntryLis
 }
 int WinQtLdap::unbind()
 {
-
 	if (_pLdap == nullptr) return 1;
 	if (!handle_res(ldap_unbind(_pLdap), "ldap_unbind() error: "))
 		return 0;
 	_pLdap = nullptr;
+	_state = Announced;
 	return 1;
 }
 WinQtLdap::~WinQtLdap()

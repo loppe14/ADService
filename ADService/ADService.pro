@@ -3,13 +3,16 @@
 # ------------------------------------------------------
 
 TEMPLATE = app
-TARGET = RDService
+TARGET = ADService
 DESTDIR = ../x64/Debug
 CONFIG += debug console
-LIBS += -L"."
+LIBS += -L"." \
+    -l/"$(INHERIT)/" \
+    -l$(Qt_LIBS_) \
+    -lWtsapi32
 DEPENDPATH += .
 MOC_DIR += .
 OBJECTS_DIR += debug
 UI_DIR += .
 RCC_DIR += .
-include(pro/RDService.pri)
+include(ADService.pri)

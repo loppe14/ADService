@@ -11,7 +11,7 @@ class WinQtLdap : public QtLdap
 {
 	ldap* _pLdap;
 public:
-	explicit WinQtLdap(QObject *parent =nullptr);
+	explicit WinQtLdap(LdapConfig*conf, QObject *parent =nullptr);
     ~WinQtLdap();
 protected:
 

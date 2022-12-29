@@ -1,15 +1,17 @@
 #pragma once
 #include <qdialog.h>
 #include "qtldap.h"
+#include "ObjFactory.h"
 #include "ui_ldapconfigmenu.h"
-class LdapConfigMenu :public QDialog, Ui::ldapConfigMenu
+class LdapConfigMenu :public QDialog, public Ui::ldapConfigMenu
 {
 	Q_OBJECT;
 private:
-	ServerConfig *sRep;
+	LdapConfig* _ldapConf;
 public:
-	LdapConfigMenu(ServerConfig *rep,QWidget* parent = nullptr);
-signals:
-	void transfer_data();
+	LdapConfigMenu(ServerConfig *rep = nullptr,QWidget* parent = nullptr);
+	LdapConfig* getLdapConfig() const { return _ldapConf; }
+private slots:
+	void setConfig();
 };
 

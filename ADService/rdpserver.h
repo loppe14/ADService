@@ -1,10 +1,10 @@
 #pragma once
 
+#include <Windows.h>
 #include <QObject>
-#include "idirectoryaccess.h"
-#include "wts.h"
-#include "singletonHolder.h"
-#include "logger.h"
+#include <WtsApi32.h>
+#include "serverlogic.h"
+#pragma comment(lib, "Wtsapi32.lib")
 using staticLogger = SingletonHolder<Logger>;
 class RDsession : public QObject {
 	Q_OBJECT
@@ -38,7 +38,7 @@ public:
 	RDState state()    const { return _state; }
 	ulong   id()       const { return _id; }
 };
-class RDServer  : public QObject,protected ServerConfig
+class RDServer  : public QObject,public ServerConfig
 {
 	Q_OBJECT;
 	QList<RDsession*> _sessions;

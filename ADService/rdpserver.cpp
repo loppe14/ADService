@@ -24,7 +24,7 @@ RDServer::RDServer(const ServerConfig* rep, QObject* parent)
 	, ServerConfig(*rep)
 	,hServer(nullptr)
 {
-	hServer = WTSOpenServerW(const_cast<wchar_t*>(rep->_hostname.toStdWString().c_str()));
+	hServer = WTSOpenServerW(const_cast<wchar_t*>(rep->hostname().toStdWString().c_str()));
 	if (!hServer)
 	{
 		staticLogger::instance()->log("RDServer error: " + QString::number(GetLastError()));
@@ -56,7 +56,7 @@ bool RDServer::updateSessions() {
 		list.push_back(new RDsession((ulong)pSessionInfo++->SessionId,
 			QString::fromWCharArray(pSessionInfo->pWinStationName),
 			username,
-			(RDsession::RDState)pSessionInfo->State,_hostname,this));
+			(RDsession::RDState)pSessionInfo->State,hostname(), this));
 	}
 	_sessions = list;
 	//WTSFreeMemory(pSessionInfo);

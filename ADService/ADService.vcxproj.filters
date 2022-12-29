@@ -29,10 +29,7 @@
     <QtUic Include="mainwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="mainwindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="mainwindow.cpp">
+    <ClCompile Include="appwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,13 +61,25 @@
     <ClCompile Include="wts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="idirectoryaccess.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="rdsessmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SessionManager.cpp">
+    <ClCompile Include="localhostserv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RDSessInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="serverlogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="servermaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="coordinator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="choicerceivingmethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,16 +93,19 @@
     <ClInclude Include="singletonHolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="idirectoryaccess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qtldap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SessionManager.h">
+    <ClInclude Include="localhostserv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="serverlogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="servermaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,11 +116,11 @@
     <QtUic Include="userservers.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="choicerceivingmethod.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ldapconfigmenu.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="logger.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -119,6 +131,15 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="rdsessmodel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="choicerceivingmethod.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="coordinator.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="appwindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

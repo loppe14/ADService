@@ -2,14 +2,17 @@
 
 #include <QDialog>
 #include "ui_userservers.h"
-#include "idirectoryaccess.h"
-class UserServers  : public QDialog, public Ui::userServers, public DirectoryAccess
+#include "logger.h"
+#include "serverlogic.h"
+class UserServers  : public QDialog, public Ui::userServers, public ServerRep
 {
 	Q_OBJECT;
 	ServerList _list;
 public:
 	UserServers(QWidget *parent=nullptr);
-	int init(ServerConfig*)   override;
-	int getServerNames(ServerList *) override;
+	int getServers(ServerList* list) override;
+	int init() override;
 	~UserServers();
+private slots:
+	void setList();
 };

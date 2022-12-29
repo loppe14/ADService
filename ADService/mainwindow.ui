@@ -94,17 +94,7 @@
     <property name="title">
      <string>Servers</string>
     </property>
-    <widget class="QMenu" name="menuLdap">
-     <property name="title">
-      <string>LDAP</string>
-     </property>
-     <addaction name="actionLdapConnect"/>
-    </widget>
-    <addaction name="menuLdap"/>
-    <addaction name="actionWTS"/>
-    <addaction name="separator"/>
-    <addaction name="actionUserInput"/>
-    <addaction name="actionCurrentServer"/>
+    <addaction name="actionSwitch_Method"/>
    </widget>
    <widget class="QMenu" name="menuRDp">
     <property name="title">
@@ -129,17 +119,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionUserInput">
+  <action name="action">
    <property name="text">
     <string>User Input</string>
    </property>
   </action>
-  <action name="actionCurrentServer">
+  <action name="actionSwitch">
    <property name="text">
     <string>Current Server</string>
    </property>
   </action>
-  <action name="actionLdapConnect">
+  <action name="switch_2">
    <property name="text">
     <string>Connect</string>
    </property>
@@ -150,6 +140,11 @@
   <action name="actionWTS">
    <property name="text">
     <string>WTS</string>
+   </property>
+  </action>
+  <action name="actionSwitch_Method">
+   <property name="text">
+    <string>Switch Method</string>
    </property>
   </action>
  </widget>

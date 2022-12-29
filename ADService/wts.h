@@ -3,14 +3,16 @@
 #include <QObject>
 #include <WtsApi32.h>
 #include <memory>
-#include "idirectoryaccess.h"
+#include "rdpserver.h"
+#include "serverlogic.h"
 #pragma comment(lib, "Wtsapi32.lib")
 // qt wrapper over Window terminal serveces
-class WTS  : public DirectoryAccess
+class WTS  : public ServerRep
 {
 	ServerConfig* _rep;
 public:
-	int init(ServerConfig* rep)  override;
-	int getServerNames(ServerList *)override;
+	WTS(ServerConfig* config = nullptr);
+	int getServers(ServerList *list)override;
+	int init() override;
 	~WTS();
 };

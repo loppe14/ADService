@@ -1,40 +1,20 @@
 #include "ldapconfigmenu.h"
-class
-{
-};
 LdapConfigMenu::LdapConfigMenu(ServerConfig *rep, QWidget* parent/*=nullptr*/)
 	:QDialog(parent)
-	,sRep(rep)
-{
+	{
 	setupUi(this);
-
-	LdapConfig* lData = dynamic_cast<LdapConfig*>(sRep);
-	if (!sRep)
-		throw(0);
-	urlLine->setText(lData->_hostname);
-	portLine->setText(QString::number(lData->port));
-	dnLine->setText(lData->dn);
-	passwLine->setText(lData->passw);
-	
-
-
+	if(rep) {
+		urlLine->setText(rep->hostname());
+		LdapConfig* lData = dynamic_cast<LdapConfig*>(rep);
+		if (lData) {
+			portLine->setText(QString::number(lData->port()));
+			dnLine->setText(lData->dn());
+			passwLine->setText(lData->passw());
+		}
+	}
 
 	connect(cancelPbt, &QPushButton::clicked, this, &QDialog::reject);
-	connect(connectPbt, &QPushButton::clicked, this, [=]()
-		{
-			lData->_hostname = urlLine->text();
-			lData->port      = portLine->text().toULong();
-			lData->passw     = portLine->text();
-			lData->dn	     = dnLine->text();
-			lData->filter    = filterLine->text();
-			lData->usingSasl = SSLCheck->isChecked();
-			if (digestRadio->isChecked() || currRadio->isChecked())
-				lData->auth = LdapConfig::DigestBind;
-			else
-				lData->auth = LdapConfig::SimpleBind;
-			accept();
-
-		});
+	connect(connectPbt, &QPushButton::clicked, this,&QDialog::accept);
 	//if anonymous authentication is selected, then the dn and passw input fields are hidden
 	connect(getHostnameCheck, &QCheckBox::toggled, this, [=](bool st)
 		{
@@ -69,4 +49,18 @@ LdapConfigMenu::LdapConfigMenu(ServerConfig *rep, QWidget* parent/*=nullptr*/)
 	currRadio->toggle();
 	emit(currRadio->toggled(true));
 
+}
+void LdapConfigMenu::setConfig()
+{
+	_ldapConf = newOpFactory<LdapConfig>::create(
+		urlLine->text(),
+		portLine->text().toULong(),
+		passwLine->text(),
+		dnLine->text(),
+		digestRadio->isChecked() || currRadio->isChecked() ?
+		LdapConfig::DigestBind :
+		LdapConfig::SimpleBind,
+		filterLine->text(),
+		saslCheck->isChecked()
+	);
 }

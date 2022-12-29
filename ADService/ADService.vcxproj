@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.3.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;qml;quick;widgets;quickwidgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -90,29 +90,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="choicerceivingmethod.cpp" />
+    <ClCompile Include="coordinator.cpp" />
+    <ClCompile Include="localhostserv.cpp" />
     <ClCompile Include="ObjFactory.cpp" />
-    <ClCompile Include="idirectoryaccess.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="qtldap.cpp" />
     <ClCompile Include="rdpserver.cpp" />
+    <ClCompile Include="RDSessInterface.cpp" />
     <ClCompile Include="rdsessmodel.cpp" />
-    <ClCompile Include="SessionManager.cpp" />
+    <ClCompile Include="serverlogic.cpp" />
+    <ClCompile Include="servermaster.cpp" />
     <ClCompile Include="userservers.cpp" />
     <ClCompile Include="winqtldap.cpp" />
     <ClCompile Include="wts.cpp" />
     <QtRcc Include="mainwindow.qrc" />
+    <QtUic Include="choicerceivingmethod.ui" />
     <QtUic Include="ldapconfigmenu.ui" />
     <QtUic Include="mainwindow.ui" />
-    <QtMoc Include="mainwindow.h" />
+    <QtMoc Include="choicerceivingmethod.h" />
+    <QtMoc Include="coordinator.h" />
+    <ClInclude Include="localhostserv.h" />
+    <QtMoc Include="appwindow.h" />
     <ClCompile Include="ldapconfigmenu.cpp" />
-    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="appwindow.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="userservers.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="idirectoryaccess.h" />
     <QtMoc Include="rdsessmodel.h" />
-    <ClInclude Include="SessionManager.h" />
+    <ClInclude Include="serverlogic.h" />
+    <ClInclude Include="servermaster.h" />
     <ClInclude Include="wts.h" />
     <QtMoc Include="logger.h" />
     <ClInclude Include="ObjFactory.h" />
@@ -120,7 +128,6 @@
     <ClInclude Include="singletonHolder.h" />
     <QtMoc Include="userservers.h" />
     <ClInclude Include="winqtldap.h" />
-    <QtMoc Include="ldapconfigmenu.h" />
     <ClInclude Include="qtldap.h" />
   </ItemGroup>
   <ItemGroup>
